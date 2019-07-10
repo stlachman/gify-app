@@ -9,7 +9,8 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      gifs: []
+      gifs: [],
+      query: ""
     };
   }
 
@@ -24,6 +25,24 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
 
+  handleChange = event => {
+    this.setState({
+      query: [event.target.value]
+    });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    axios
+      .get(
+        `http://api.giphy.com/v1/gifs/search?q=${this.state.query}&api_key=${
+          process.env.REACT_APP_GIF_API
+        }&limit=5`
+      )
+      .then(res => this.setState({ gifs: res.data.data }))
+      .catch(err => console.log(err));
+  };
+
   render() {
     const { gifs } = this.state;
     if (!gifs) {
@@ -37,6 +56,17 @@ class App extends React.Component {
       >
         <div>
           <h1>Giphy Trends!</h1>
+          <form onSubmit={this.handleSubmit}>
+            <label htmlFor="gif-search">Search for Gifs</label>
+            <input
+              onChange={this.handleChange}
+              type="text"
+              name="gif-search"
+              id="gif-search"
+              placeholder="Search Here"
+            />
+            <button>Search Gifs</button>
+          </form>
         </div>
         <div
           css={css`
