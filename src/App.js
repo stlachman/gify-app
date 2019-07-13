@@ -2,6 +2,7 @@
 /** @jsx jsx */
 import React from "react";
 import axios from "axios";
+import SearchBar from "./components/SearchBar/SearchBar";
 import { css, jsx } from "@emotion/core";
 import "./App.css";
 
@@ -56,18 +57,11 @@ class App extends React.Component {
       >
         <div>
           <h1>Giphy Trends!</h1>
-          <form onSubmit={this.handleSubmit}>
-            <label htmlFor="gif-search">Search for Gifs</label>
-            <input
-              onChange={this.handleChange}
-              type="text"
-              name="gif-search"
-              id="gif-search"
-              placeholder="Search Here"
-            />
-            <button>Search Gifs</button>
-          </form>
         </div>
+        <SearchBar
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+        />
         <div
           css={css`
             display: grid;
