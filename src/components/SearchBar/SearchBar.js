@@ -1,9 +1,11 @@
 import React from "react";
-
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
 const SearchBar = props => {
   return (
     <form onSubmit={props.handleSubmit}>
-      <label htmlFor="gif-search">Search for Gifs</label>
+      
+      <label css={css` color: #fff;`}htmlFor="gif-search">Search for Gifs
       <input
         onChange={props.handleChange}
         type="text"
@@ -11,6 +13,7 @@ const SearchBar = props => {
         id="gif-search"
         placeholder="Search Here"
       />
+      </label>
       <button>Search Gifs</button>
     </form>
   );

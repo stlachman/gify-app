@@ -5,16 +5,14 @@ import axios from "axios";
 import { withRouter } from "react-router-dom";
 import { css, jsx } from "@emotion/core";
 
+
 import SearchBar from "../SearchBar/SearchBar";
 
 class Home extends React.Component {
-  constructor() {
-    super();
-    this.state = {
+    state = {
       gifs: [],
       query: ""
     };
-  }
 
   render() {
     const { gifs } = this.state;
@@ -22,22 +20,32 @@ class Home extends React.Component {
       return <div>Loading Gifs</div>;
     }
     return (
-      <main
-        css={css`
-          padding: 0 15px;
-        `}
-      >
-        <div>
-          <h1>Giphy Trends!</h1>
+      <main>
+        <div css={css`
+          background: #00467F;  /* fallback for old browsers */
+          background: -webkit-linear-gradient(to bottom, #A5CC82, #00467F);  /* Chrome 10-25, Safari 5.1-6 */
+          background: linear-gradient(to bottom, #A5CC82, #00467F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+          padding: 20px 10px;        
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        `}>
+          <h1 css={css` color: #fff;`}>Giphy Trends!</h1>
+            <SearchBar
+              handleChange={this.handleChange}
+              handleSubmit={this.handleSubmit}
+            />
         </div>
-        <SearchBar
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-        />
+        <div css={css`
+          padding: 0 15px;
+          max-width: 950px;
+          width: 100%;
+          margin: 0 auto;
+        `} >
         <div
           css={css`
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             grid-gap: 10px;
           `}
         >
@@ -49,6 +57,7 @@ class Home extends React.Component {
                 </div>
               );
             })}
+        </div>
         </div>
       </main>
     );
