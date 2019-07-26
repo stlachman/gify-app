@@ -40,7 +40,7 @@ class Home extends React.Component {
           padding: 0 15px;
           max-width: 950px;
           width: 100%;
-          margin: 0 auto;
+          margin: 20px auto 0;
         `} >
         <div
           css={css`
@@ -53,7 +53,10 @@ class Home extends React.Component {
             gifs.map(gif => {
               return (
                 <div key={gif.id}>
-                  <img src={gif.images.downsized.url} alt="" />
+                  <img css={css`
+                    height: auto;
+                    max-width: 100%;
+                  `} src={gif.images.downsized.url} alt="" />
                 </div>
               );
             })}
