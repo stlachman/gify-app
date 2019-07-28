@@ -5,14 +5,13 @@ import axios from "axios";
 import { withRouter } from "react-router-dom";
 import { css, jsx } from "@emotion/core";
 
-
 import SearchBar from "../SearchBar/SearchBar";
 
 class Home extends React.Component {
-    state = {
-      gifs: [],
-      query: ""
-    };
+  state = {
+    gifs: [],
+    query: ""
+  };
 
   render() {
     const { gifs } = this.state;
@@ -20,47 +19,93 @@ class Home extends React.Component {
       return <div>Loading Gifs</div>;
     }
     return (
-      <main>
-        <div css={css`
-          background: #00467F;  /* fallback for old browsers */
-          background: -webkit-linear-gradient(to bottom, #A5CC82, #00467F);  /* Chrome 10-25, Safari 5.1-6 */
-          background: linear-gradient(to bottom, #A5CC82, #00467F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-          padding: 20px 10px;        
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        `}>
-          <h1 css={css` color: #fff;`}>Giphy Trends!</h1>
-            <SearchBar
-              handleChange={this.handleChange}
-              handleSubmit={this.handleSubmit}
-            />
-        </div>
-        <div css={css`
-          padding: 0 15px;
-          max-width: 950px;
-          width: 100%;
-          margin: 20px auto 0;
-        `} >
+      <main
+        css={css`
+          background: #eee;
+        `}
+      >
         <div
           css={css`
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-gap: 10px;
+            background: #00467f; /* fallback for old browsers */
+            background: -webkit-linear-gradient(
+              to bottom,
+              #a5cc82,
+              #00467f
+            ); /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(
+              to bottom,
+              #a5cc82,
+              #00467f
+            ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
           `}
         >
-          {gifs &&
-            gifs.map(gif => {
-              return (
-                <div key={gif.id}>
-                  <img css={css`
-                    height: auto;
-                    max-width: 100%;
-                  `} src={gif.images.downsized.url} alt="" />
-                </div>
-              );
-            })}
+          <h1
+            css={css`
+              color: #fff;
+            `}
+          >
+            Giphy Trends!
+          </h1>
+          <SearchBar
+            handleChange={this.handleChange}
+            handleSubmit={this.handleSubmit}
+          />
         </div>
+        <div
+          css={css`
+            padding: 0 15px;
+            max-width: 950px;
+            width: 100%;
+            margin: 20px auto 0;
+          `}
+        >
+          <div
+            css={css`
+              display: grid;
+              grid-template-columns: repeat(2, 1fr);
+              grid-gap: 10px;
+            `}
+          >
+            {gifs &&
+              gifs.map(gif => {
+                return (
+                  <div
+                    css={css`
+                      background: #fff;
+                      display: flex;
+                      justify-content: center;
+                      flex-direction: column;
+                      align-items: center;
+                      padding: 10px;
+                    `}
+                    key={gif.id}
+                  >
+                    <div>
+                      <img
+                        css={css`
+                          height: auto;
+                          max-width: 100%;
+                        `}
+                        src={gif.images.downsized.url}
+                        alt=""
+                      />
+                    </div>
+                    <div
+                      css={css`
+                        margin-top: 20px;
+                      `}
+                    >
+                      <button>Like</button>
+                      <button onClick={this.copyLink}>Copy Link</button>
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
         </div>
       </main>
     );
@@ -81,6 +126,11 @@ class Home extends React.Component {
     this.setState({
       query: [event.target.value]
     });
+  };
+
+  copyLink = event => {
+    event.preventDefault();
+    console.log(event.target.parentNode.parentNode.querySelector("img").src);
   };
 
   handleSubmit = event => {
