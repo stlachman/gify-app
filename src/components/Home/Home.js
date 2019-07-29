@@ -2,26 +2,31 @@
 /** @jsx jsx */
 import React from "react";
 import axios from "axios";
+import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { css, jsx } from "@emotion/core";
 
+import { getGifs } from "../../actions";
 import SearchBar from "../SearchBar/SearchBar";
 
 class Home extends React.Component {
-  state = {
-    gifs: [],
-    query: ""
-  };
+  // state = {
+  //   gifs: [],
+  //   query: "",
+  //   liked: []
+  // };
 
   render() {
-    const { gifs } = this.state;
-    if (!gifs) {
+    const { gifs, isLoading } = this.props;
+
+    if (isLoading) {
       return <div>Loading Gifs</div>;
     }
+
     return (
       <main
         css={css`
-          background: #eee;
+          background: #f1e7fe;
         `}
       >
         <div
@@ -70,8 +75,8 @@ class Home extends React.Component {
               grid-gap: 10px;
             `}
           >
-            {gifs &&
-              gifs.map(gif => {
+            {gifs.data &&
+              gifs.data.map(gif => {
                 return (
                   <div
                     css={css`
@@ -99,8 +104,7 @@ class Home extends React.Component {
                         margin-top: 20px;
                       `}
                     >
-                      <button>Like</button>
-                      <button onClick={this.copyLink}>Copy Link</button>
+                      <button onClick={this.storeLiked}>Like</button>
                     </div>
                   </div>
                 );
@@ -112,25 +116,22 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    axios
-      .get(
-        `https://api.giphy.com/v1/gifs/trending?api_key=${
-          process.env.REACT_APP_GIF_API
-        }&limit=25`
-      )
-      .then(res => this.setState({ gifs: res.data.data }))
-      .catch(err => console.log(err));
+    this.props.getGifs();
   }
+
+  storeLiked = event => {
+    event.preventDefault();
+    const likedImage = event.target.parentNode.parentNode.querySelector("img")
+      .src;
+    this.setState({
+      liked: [...this.state.liked, { image: likedImage }]
+    });
+  };
 
   handleChange = event => {
     this.setState({
       query: [event.target.value]
     });
-  };
-
-  copyLink = event => {
-    event.preventDefault();
-    console.log(event.target.parentNode.parentNode.querySelector("img").src);
   };
 
   handleSubmit = event => {
@@ -146,4 +147,17 @@ class Home extends React.Component {
   };
 }
 
-export default withRouter(Home);
+const mapStateToProps = state => {
+  return {
+    gifs: state.gifs,
+    isLoading: state.isLoading,
+    error: state.error
+  };
+};
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { getGifs }
+  )(Home)
+);
