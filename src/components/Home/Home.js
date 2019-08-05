@@ -1,23 +1,19 @@
-// this comment tells babel to convert jsx to calls to a function called jsx instead of React.createElement
 /** @jsx jsx */
 import React from "react";
 import axios from "axios";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
 import { css, jsx } from "@emotion/core";
 
-import { getGifs } from "../../actions";
 import SearchBar from "../SearchBar/SearchBar";
 
 class Home extends React.Component {
-  // state = {
-  //   gifs: [],
-  //   query: "",
-  //   liked: []
-  // };
+  state = {
+    liked: [],
+    isLoading: true,
+    gifs: []
+  };
 
   render() {
-    const { gifs, isLoading } = this.props;
+    const { gifs, isLoading } = this.state;
 
     if (isLoading) {
       return <div>Loading Gifs</div>;
@@ -31,17 +27,7 @@ class Home extends React.Component {
       >
         <div
           css={css`
-            background: #00467f; /* fallback for old browsers */
-            background: -webkit-linear-gradient(
-              to bottom,
-              #a5cc82,
-              #00467f
-            ); /* Chrome 10-25, Safari 5.1-6 */
-            background: linear-gradient(
-              to bottom,
-              #a5cc82,
-              #00467f
-            ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            background: #00467f;
             padding: 20px 10px;
             display: flex;
             flex-direction: column;
@@ -55,10 +41,7 @@ class Home extends React.Component {
           >
             Giphy Trends!
           </h1>
-          <SearchBar
-            handleChange={this.handleChange}
-            handleSubmit={this.handleSubmit}
-          />
+          <SearchBar searchGifs={this.searchGifs} />
         </div>
         <div
           css={css`
@@ -75,8 +58,8 @@ class Home extends React.Component {
               grid-gap: 10px;
             `}
           >
-            {gifs.data &&
-              gifs.data.map(gif => {
+            {gifs &&
+              gifs.map(gif => {
                 return (
                   <div
                     css={css`
@@ -116,8 +99,27 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getGifs();
+    axios
+      .get(
+        `https://api.giphy.com/v1/gifs/trending?api_key=${
+          process.env.REACT_APP_GIF_API
+        }&limit=25`
+      )
+      .then(res => this.setState({ gifs: res.data.data, isLoading: false }))
+      .catch(err => this.setState({ isLoading: false }));
   }
+
+  searchGifs = query => {
+    console.log(query);
+    axios
+      .get(
+        `http://api.giphy.com/v1/gifs/search?q=${query}&api_key=${
+          process.env.REACT_APP_GIF_API
+        }&limit=15`
+      )
+      .then(res => this.setState({ gifs: res.data.data }))
+      .catch(err => console.log(err));
+  };
 
   storeLiked = event => {
     event.preventDefault();
@@ -127,37 +129,6 @@ class Home extends React.Component {
       liked: [...this.state.liked, { image: likedImage }]
     });
   };
-
-  handleChange = event => {
-    this.setState({
-      query: [event.target.value]
-    });
-  };
-
-  handleSubmit = event => {
-    event.preventDefault();
-    axios
-      .get(
-        `http://api.giphy.com/v1/gifs/search?q=${this.state.query}&api_key=${
-          process.env.REACT_APP_GIF_API
-        }&limit=15`
-      )
-      .then(res => this.setState({ gifs: res.data.data }))
-      .catch(err => console.log(err));
-  };
 }
 
-const mapStateToProps = state => {
-  return {
-    gifs: state.gifs,
-    isLoading: state.isLoading,
-    error: state.error
-  };
-};
-
-export default withRouter(
-  connect(
-    mapStateToProps,
-    { getGifs }
-  )(Home)
-);
+export default Home;
