@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { css, jsx } from "@emotion/core";
+import { Link } from "react-router-dom";
 import HashLoader from "react-spinners/HashLoader";
 
 import SearchBar from "../SearchBar/SearchBar";
@@ -27,7 +28,7 @@ const Home = () => {
   const searchGifs = query => {
     axios
       .get(
-        `http://api.giphy.com/v1/gifs/search?q=${query}&api_key=${
+        `https://api.giphy.com/v1/gifs/search?q=${query}&api_key=${
           process.env.REACT_APP_GIF_API
         }&limit=15`
       )
@@ -111,13 +112,14 @@ const Home = () => {
           css={css`
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            grid-gap: 10px;
+            grid-gap: 2rem 4rem;
           `}
         >
           {gifs &&
             gifs.map(gif => {
               return (
-                <div
+                <Link
+                  to={`/gifs/${gif.id}`}
                   css={css`
                     background: #fff;
                     display: flex;
@@ -145,7 +147,7 @@ const Home = () => {
                   >
                     <button>Like</button>
                   </div>
-                </div>
+                </Link>
               );
             })}
         </div>

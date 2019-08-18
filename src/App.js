@@ -1,10 +1,18 @@
 import React from "react";
+import { Route } from "react-router-dom";
+
 import Home from "./components/Home/Home";
+import Gif from "./components/Gif/Gif";
 
 import "./App.css";
 
 const App = () => {
-  return <Home />;
+  return (
+    <>
+      <Route path="/" exact component={Home} />
+      <Route path="/gifs/:id" component={Gif} />
+    </>
+  );
 };
 
 export default App;
