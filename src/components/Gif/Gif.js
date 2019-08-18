@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Layout from "../Layout/Layout";
 
 const Gif = props => {
   const [gif, setGif] = useState(null);
@@ -23,16 +24,20 @@ const Gif = props => {
 
   if (isLoading) {
     return (
-      <div>
-        <h2>Loading Gif</h2>
-      </div>
+      <Layout>
+        <div>
+          <h2>Loading Gif</h2>
+        </div>
+      </Layout>
     );
   }
 
   return (
-    <div>
-      <img src={gif.images.downsized.url} alt={gif.title} />
-    </div>
+    <Layout>
+      <div>
+        <img src={gif.images.downsized.url} alt={gif.title} />
+      </div>
+    </Layout>
   );
 };
 
