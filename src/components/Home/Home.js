@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { css, jsx } from "@emotion/core";
+import HashLoader from "react-spinners/HashLoader";
 
 import SearchBar from "../SearchBar/SearchBar";
 
@@ -24,7 +25,6 @@ const Home = () => {
   }, [isLoading]);
 
   const searchGifs = query => {
-    console.log(query);
     axios
       .get(
         `http://api.giphy.com/v1/gifs/search?q=${query}&api_key=${
@@ -41,10 +41,40 @@ const Home = () => {
       .src;
   };
 
+  const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: red;
+  `;
+
   if (isLoading) {
-    return <div>Loading Gifs</div>;
+    return (
+      <main
+        css={css`
+          background: #a3aebd;
+          height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        `}
+      >
+        <div
+          css={css`
+            padding: 20px 10px;
+          `}
+        >
+          <HashLoader
+            css={override}
+            sizeUnit={"px"}
+            size={50}
+            color={"#123abc"}
+            loading={isLoading}
+          />
+        </div>
+      </main>
+    );
   }
-  console.log(gifs);
+
   return (
     <main
       css={css`
