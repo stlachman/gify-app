@@ -48,9 +48,10 @@ const Layout = ({ children }) => {
       <main
         css={css`
           background: #a3aebd;
+          height: 100vh;
         `}
       >
-        <div>{children}</div>
+        {children}
       </main>
     </>
   );
