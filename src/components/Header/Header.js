@@ -7,12 +7,12 @@ const Header = () => {
   return (
     <header
       css={css`
-        background: #0e467f;
+        background: #121212;
       `}
     >
       <nav
         css={css`
-          max-width: 910px;
+          max-width: 1040px;
           margin: 0 auto;
         `}
       >

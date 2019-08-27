@@ -25,9 +25,7 @@ const Gif = props => {
   useEffect(() => {
     axios
       .get(
-        `https://api.giphy.com/v1/gifs/${id}?api_key=${
-          process.env.REACT_APP_GIF_API
-        }&limit=25`
+        `https://api.giphy.com/v1/gifs/${id}?api_key=${process.env.REACT_APP_GIF_API}&limit=25`
       )
       .then(res => {
         setGif(res.data.data);
@@ -68,6 +66,7 @@ const Gif = props => {
           width: 100%;
           margin: 20px auto 0;
           display: flex;
+          flex-wrap: wrap;
         `}
       >
         <img src={gif.images.downsized.url} alt={gif.title} />

@@ -22,7 +22,7 @@ const Layout = ({ children }) => {
               "Segoe UI Emoji", "Segoe UI Symbol";
             font-size: 18px;
             line-height: 1.4;
-            background: #a3aebd;
+            background: #121212;
 
             > div {
               margin-top: 0;
@@ -48,7 +48,7 @@ const Layout = ({ children }) => {
       <Header />
       <main
         css={css`
-          background: #a3aebd;
+          background: #121212;
         `}
       >
         {children}

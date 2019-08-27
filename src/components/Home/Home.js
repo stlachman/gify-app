@@ -14,9 +14,7 @@ const Home = () => {
   useEffect(() => {
     axios
       .get(
-        `https://api.giphy.com/v1/gifs/trending?api_key=${
-          process.env.REACT_APP_GIF_API
-        }&limit=25`
+        `https://api.giphy.com/v1/gifs/trending?api_key=${process.env.REACT_APP_GIF_API}&limit=25`
       )
       .then(res => {
         setGifs(res.data.data);
@@ -28,9 +26,7 @@ const Home = () => {
   const searchGifs = query => {
     axios
       .get(
-        `https://api.giphy.com/v1/gifs/search?q=${query}&api_key=${
-          process.env.REACT_APP_GIF_API
-        }&limit=15`
+        `https://api.giphy.com/v1/gifs/search?q=${query}&api_key=${process.env.REACT_APP_GIF_API}&limit=15`
       )
       .then(res => setGifs(res.data.data))
       .catch(err => console.log(err));
@@ -53,7 +49,7 @@ const Home = () => {
       <>
         <main
           css={css`
-            background: #a3aebd;
+            background: #121212;
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -83,7 +79,7 @@ const Home = () => {
       <Layout>
         <div
           css={css`
-            background: #00467f;
+            background: #121212;
             padding: 20px 10px;
             display: flex;
             flex-direction: column;
@@ -103,7 +99,7 @@ const Home = () => {
         <div
           css={css`
             padding: 0 15px;
-            max-width: 950px;
+            max-width: 1040px;
             width: 100%;
             margin: 20px auto 0;
           `}
