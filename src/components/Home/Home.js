@@ -117,20 +117,25 @@ const Home = () => {
                   <Link
                     to={`/gifs/${gif.id}`}
                     css={css`
-                      background: #fff;
                       display: flex;
                       justify-content: center;
                       flex-direction: column;
                       align-items: center;
                       padding: 10px;
+                      border: 22px solid #1b1c1f;
                     `}
                     key={gif.id}
                   >
-                    <div>
+                    <div
+                      css={css`
+                        margin: 0 0 15px;
+                      `}
+                    >
                       <img
                         css={css`
                           height: auto;
                           max-width: 100%;
+                          max-height: 200px;
                         `}
                         src={gif.images.downsized.url}
                         alt=""
@@ -138,10 +143,26 @@ const Home = () => {
                     </div>
                     <div
                       css={css`
-                        margin-top: 20px;
+                        margin: auto 0 10px;
                       `}
                     >
-                      <button>Like</button>
+                      <button
+                        css={css`
+                          border: 0;
+                          background: #f9f9f9;
+                          padding: 8px 26px;
+                          font-size: 18px;
+                          font-weight: 600;
+                          transition: 0.215s;
+
+                          &:hover {
+                            opacity: 0.85;
+                            cursor: pointer;
+                          }
+                        `}
+                      >
+                        Like
+                      </button>
                     </div>
                   </Link>
                 );
