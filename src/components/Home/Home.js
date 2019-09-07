@@ -105,8 +105,42 @@ const Home = () => {
             margin: 20px auto 0;
           `}
         >
-          <button onClick={() => setShowLiked(false)}>Home</button>
-          <button onClick={() => setShowLiked(true)}>Favorites</button>
+          <div
+            css={css`
+              display: flex;
+              justify-content: center;
+              margin: 2rem 0;
+            `}
+          >
+            <button
+              css={css`
+                margin: 0 1rem;
+
+                color: #fff;
+                background-color: transparent;
+                border: 0;
+                border-bottom: 2px solid #fff;
+                font-size: 1.2rem;
+              `}
+              onClick={() => setShowLiked(false)}
+            >
+              Home
+            </button>
+            <button
+              css={css`
+                margin: 0 1rem;
+
+                color: #fff;
+                background-color: transparent;
+                border: 0;
+                border-bottom: 2px solid #fff;
+                font-size: 1.2rem;
+              `}
+              onClick={() => setShowLiked(true)}
+            >
+              Favorites
+            </button>
+          </div>
           {showLiked ? (
             <GifList gifs={liked} storeLiked={storeLiked} />
           ) : (
