@@ -14,11 +14,11 @@ export const AlternateButton = ({ value, setShowLiked }) => {
         color: #fff;
         background-color: transparent;
         border: 0;
-        border-bottom: 2px solid #fff;
-        font-size: 1.2rem;
-
+        font-size: 1.8rem;
+        transition: 0.325s ease-in-out;
         &:hover {
           cursor: pointer;
+          opacity: 0.75;
         }
 
         &:focus {

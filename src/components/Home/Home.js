@@ -4,8 +4,9 @@ import axios from "axios";
 import { css, jsx } from "@emotion/core";
 import Layout from "../Layout/Layout";
 import GifList from "../GifList/GifList";
-import HashLoader from "react-spinners/HashLoader";
+
 import SearchBar from "../SearchBar/SearchBar";
+import Loader from "../Loader/Loader";
 import { AlternateButton } from "../Buttons/AlternateButton";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 
@@ -40,40 +41,8 @@ const Home = () => {
     setIsLiked([...liked, gif]);
   };
 
-  const override = css`
-    display: block;
-    margin: 0 auto;
-    border-color: red;
-  `;
-
   if (isLoading) {
-    return (
-      <>
-        <main
-          css={css`
-            background: #121212;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          `}
-        >
-          <div
-            css={css`
-              padding: 20px 10px;
-            `}
-          >
-            <HashLoader
-              css={override}
-              sizeUnit={"px"}
-              size={50}
-              color={"#123abc"}
-              loading={isLoading}
-            />
-          </div>
-        </main>
-      </>
-    );
+    return <Loader isLoading={isLoading} />;
   }
 
   return (
@@ -91,7 +60,8 @@ const Home = () => {
           <h1
             css={css`
               color: #fff;
-              margin-bottom: 1rem;
+              margin-bottom: 2rem;
+              font-size: 2.8rem;
             `}
           >
             Giphy Trends!
