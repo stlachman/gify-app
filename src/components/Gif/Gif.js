@@ -19,7 +19,6 @@ const Gif = props => {
 
   const handleClick = e => {
     e.preventDefault();
-    console.log(e);
   };
 
   useEffect(() => {

@@ -6,10 +6,13 @@ import { Link } from "react-router-dom";
 import Layout from "../Layout/Layout";
 import HashLoader from "react-spinners/HashLoader";
 import SearchBar from "../SearchBar/SearchBar";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 const Home = () => {
   const [gifs, setGifs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [showLiked, setShowLiked] = useState(false);
+  const [liked, setIsLiked] = useLocalStorage("liked", []);
 
   useEffect(() => {
     axios
@@ -32,10 +35,8 @@ const Home = () => {
       .catch(err => console.log(err));
   };
 
-  const storeLiked = event => {
-    event.preventDefault();
-    const likedImage = event.target.parentNode.parentNode.querySelector("img")
-      .src;
+  const storeLiked = gif => {
+    setIsLiked([...liked, gif]);
   };
 
   const override = css`
@@ -74,6 +75,18 @@ const Home = () => {
     );
   }
 
+  if (showLiked) {
+    return (
+      <>
+        <Layout>
+          {liked.map(gif => (
+            <div>{gif.id}</div>
+          ))}
+        </Layout>
+      </>
+    );
+  }
+
   return (
     <>
       <Layout>
@@ -104,6 +117,10 @@ const Home = () => {
             margin: 20px auto 0;
           `}
         >
+          {/* <Link to={{ pathname: "/liked", state: { liked: liked } }}>
+            Liked
+          </Link> */}
+          <button onClick={() => setShowLiked(!showLiked)}>Liked</button>
           <div
             css={css`
               display: grid;
@@ -114,8 +131,7 @@ const Home = () => {
             {gifs &&
               gifs.map(gif => {
                 return (
-                  <Link
-                    to={`/gifs/${gif.id}`}
+                  <div
                     css={css`
                       display: flex;
                       justify-content: center;
@@ -147,6 +163,7 @@ const Home = () => {
                       `}
                     >
                       <button
+                        onClick={() => storeLiked(gif)}
                         css={css`
                           border: 0;
                           background: #f9f9f9;
@@ -164,7 +181,7 @@ const Home = () => {
                         Like
                       </button>
                     </div>
-                  </Link>
+                  </div>
                 );
               })}
           </div>
