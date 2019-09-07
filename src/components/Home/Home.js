@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { css, jsx } from "@emotion/core";
-import { Link } from "react-router-dom";
 import Layout from "../Layout/Layout";
+import GifList from "../GifList/GifList";
 import HashLoader from "react-spinners/HashLoader";
 import SearchBar from "../SearchBar/SearchBar";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
@@ -75,18 +75,6 @@ const Home = () => {
     );
   }
 
-  if (showLiked) {
-    return (
-      <>
-        <Layout>
-          {liked.map(gif => (
-            <div>{gif.id}</div>
-          ))}
-        </Layout>
-      </>
-    );
-  }
-
   return (
     <>
       <Layout>
@@ -117,74 +105,13 @@ const Home = () => {
             margin: 20px auto 0;
           `}
         >
-          {/* <Link to={{ pathname: "/liked", state: { liked: liked } }}>
-            Liked
-          </Link> */}
-          <button onClick={() => setShowLiked(!showLiked)}>Liked</button>
-          <div
-            css={css`
-              display: grid;
-              grid-template-columns: repeat(2, 1fr);
-              grid-gap: 2rem 4rem;
-            `}
-          >
-            {gifs &&
-              gifs.map(gif => {
-                return (
-                  <div
-                    css={css`
-                      display: flex;
-                      justify-content: center;
-                      flex-direction: column;
-                      align-items: center;
-                      padding: 10px;
-                      border: 22px solid #1b1c1f;
-                    `}
-                    key={gif.id}
-                  >
-                    <div
-                      css={css`
-                        margin: 0 0 15px;
-                      `}
-                    >
-                      <img
-                        css={css`
-                          height: auto;
-                          max-width: 100%;
-                          max-height: 200px;
-                        `}
-                        src={gif.images.downsized.url}
-                        alt=""
-                      />
-                    </div>
-                    <div
-                      css={css`
-                        margin: auto 0 10px;
-                      `}
-                    >
-                      <button
-                        onClick={() => storeLiked(gif)}
-                        css={css`
-                          border: 0;
-                          background: #f9f9f9;
-                          padding: 8px 26px;
-                          font-size: 18px;
-                          font-weight: 600;
-                          transition: 0.215s;
-
-                          &:hover {
-                            opacity: 0.85;
-                            cursor: pointer;
-                          }
-                        `}
-                      >
-                        Like
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
-          </div>
+          <button onClick={() => setShowLiked(false)}>Home</button>
+          <button onClick={() => setShowLiked(true)}>Favorites</button>
+          {showLiked ? (
+            <GifList gifs={liked} storeLiked={storeLiked} />
+          ) : (
+            <GifList gifs={gifs} storeLiked={storeLiked} />
+          )}
         </div>
       </Layout>
     </>
