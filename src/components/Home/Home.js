@@ -6,6 +6,7 @@ import Layout from "../Layout/Layout";
 import GifList from "../GifList/GifList";
 import HashLoader from "react-spinners/HashLoader";
 import SearchBar from "../SearchBar/SearchBar";
+import { AlternateButton } from "../Buttons/AlternateButton";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 const Home = () => {
@@ -112,34 +113,8 @@ const Home = () => {
               margin: 2rem 0;
             `}
           >
-            <button
-              css={css`
-                margin: 0 1rem;
-
-                color: #fff;
-                background-color: transparent;
-                border: 0;
-                border-bottom: 2px solid #fff;
-                font-size: 1.2rem;
-              `}
-              onClick={() => setShowLiked(false)}
-            >
-              Home
-            </button>
-            <button
-              css={css`
-                margin: 0 1rem;
-
-                color: #fff;
-                background-color: transparent;
-                border: 0;
-                border-bottom: 2px solid #fff;
-                font-size: 1.2rem;
-              `}
-              onClick={() => setShowLiked(true)}
-            >
-              Favorites
-            </button>
+            <AlternateButton value={"Home"} setShowLiked={setShowLiked} />
+            <AlternateButton value={"Liked"} setShowLiked={setShowLiked} />
           </div>
           {showLiked ? (
             <GifList gifs={liked} storeLiked={storeLiked} />
