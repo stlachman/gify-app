@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import React from "react";
 import { Global, css, jsx } from "@emotion/core";
-import Header from "../Header/Header";
 
 const Layout = ({ children }) => {
   return (
@@ -45,7 +44,6 @@ const Layout = ({ children }) => {
           }
         `}
       />
-      <Header />
       <main
         css={css`
           background: #121212;
