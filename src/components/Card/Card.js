@@ -38,22 +38,14 @@ const Card = ({ gif, storeLiked }) => {
           onClick={() => storeLiked(gif)}
           css={css`
             border: 0;
-            color: #fff;
-            background: #fc5c7d; /* fallback for old browsers */
-            background: -webkit-linear-gradient(
-              to bottom,
-              #6a82fb,
-              #fc5c7d
-            ); /* Chrome 10-25, Safari 5.1-6 */
-            background: linear-gradient(
-              to bottom,
-              #6a82fb,
-              #fc5c7d
-            ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
             padding: 8px 26px;
             font-size: 1.6rem;
             font-weight: 600;
             transition: 0.215s;
+            border: 3px solid #333;
+            background-color: #fff;
+            color: #333;
+            border-radius: 8px;
 
             &:hover {
               opacity: 0.85;

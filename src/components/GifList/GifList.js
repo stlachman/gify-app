@@ -7,8 +7,10 @@ const GifList = ({ gifs, storeLiked }) => {
     <div
       css={css`
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
         grid-gap: 2rem 4rem;
+        @media (min-width: 450px) {
+          grid-template-columns: repeat(2, 1fr);
+        }
       `}
     >
       {gifs &&
