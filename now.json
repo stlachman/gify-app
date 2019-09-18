@@ -1,0 +1,7 @@
+{
+  "build": {
+    "env": {
+      "SECRET": "@react_app_gif_api"
+    }
+  }
+}
