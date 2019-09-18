@@ -1,7 +1,7 @@
 {
   "build": {
     "env": {
-      "SECRET": "@react_app_gif_api"
+      "REACT_APP_GIF_API": "@gif-key"
     }
   }
 }

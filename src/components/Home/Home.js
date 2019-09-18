@@ -19,7 +19,7 @@ const Home = () => {
   useEffect(() => {
     axios
       .get(
-        `https://api.giphy.com/v1/gifs/trending?api_key=${process.env.react_app_gif_api}&limit=25`
+        `https://api.giphy.com/v1/gifs/trending?api_key=${process.env.REACT_APP_GIF_API}&limit=25`
       )
       .then(res => {
         setGifs(res.data.data);
@@ -31,7 +31,7 @@ const Home = () => {
   const searchGifs = query => {
     axios
       .get(
-        `https://api.giphy.com/v1/gifs/search?q=${query}&api_key=${process.env.react_app_gif_api}&limit=15`
+        `https://api.giphy.com/v1/gifs/search?q=${query}&api_key=${process.env.REACT_APP_GIF_API}&limit=15`
       )
       .then(res => setGifs(res.data.data))
       .catch(err => console.log(err));
