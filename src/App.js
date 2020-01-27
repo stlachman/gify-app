@@ -4,8 +4,6 @@ import { Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Gif from "./components/Gif/Gif";
 
-import "./App.css";
-
 const App = () => {
   return (
     <>
